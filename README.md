@@ -4,7 +4,7 @@
 
 This fork was made due to the need of having a W3C and WCAG 2.0 compliant version of this library.
 
-The edit were kept as minimal as possible, so the way this code was written doesn't reflect my coding style.
+The edits were kept as minimal as possible, so the way this code was written doesn't reflect my coding style.
 
 # AngularEditor
 [![npm version](https://badge.fury.io/js/%40kolkov%2Fangular-editor.svg)](https://badge.fury.io/js/%40kolkov%2Fangular-editor)
