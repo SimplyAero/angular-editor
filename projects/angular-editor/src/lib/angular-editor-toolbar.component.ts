@@ -316,7 +316,8 @@ export class AngularEditorToolbarComponent {
    */
   onFileChanged(event) {
     const file = event.target.files[0];
-    if (file.type.includes('image/')) {
+    // IE11 compatibility
+    if (String.prototype.includes ? file.type.includes('image/') : file.type.indexOf('image/') >= 0) {
         if (this.upload) {
           this.upload(file).subscribe(() => this.watchUploadImage);
         } else if (this.uploadUrl) {

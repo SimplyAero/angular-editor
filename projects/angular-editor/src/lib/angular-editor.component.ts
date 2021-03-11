@@ -395,7 +395,8 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     const tags = ['span'];
     this.config.customClasses.forEach(x => {
       if (x.tag !== undefined) {
-        if (!tags.includes(x.tag)) {
+        // IE11 compatibility
+        if (Array.prototype.includes ? !tags.includes(x.tag) : !tags.some(item => item === x.tag)) {
           tags.push(x.tag);
         }
       }
