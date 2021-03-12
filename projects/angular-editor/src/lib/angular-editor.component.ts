@@ -257,8 +257,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param value html string from the editor
    */
   refreshView(value: string): void {
-    const normalizedValue = value === null ? '' : value;
-    this.r.setProperty(this.textArea.nativeElement, 'innerHTML', normalizedValue);
+    if (this.textArea) {
+      const normalizedValue = value === null ? '' : value;
+      this.r.setProperty(this.textArea.nativeElement, 'innerHTML', normalizedValue);
+    }
 
     return;
   }
@@ -269,13 +271,15 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param value A HTML string from the editor
    */
   togglePlaceholder(value: boolean): void {
-    if (!value) {
-      this.r.addClass(this.editorWrapper.nativeElement, 'show-placeholder');
-      this.showPlaceholder = true;
+    if (this.editorWrapper) {
+      if (!value) {
+        this.r.addClass(this.editorWrapper.nativeElement, 'show-placeholder');
+        this.showPlaceholder = true;
 
-    } else {
-      this.r.removeClass(this.editorWrapper.nativeElement, 'show-placeholder');
-      this.showPlaceholder = false;
+      } else {
+        this.r.removeClass(this.editorWrapper.nativeElement, 'show-placeholder');
+        this.showPlaceholder = false;
+      }
     }
   }
 
