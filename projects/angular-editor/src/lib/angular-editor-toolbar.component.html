@@ -94,14 +94,14 @@
     </ae-select>
   </div>
   <div class="angular-editor-toolbar-set">
-    <label>
+    <label style="display: none;">
       hidden
       <input
         style="display: none"
         type="color" (change)="insertColor(fgInput.value, 'textColor')"
         #fgInput>
     </label>
-    <label>
+    <label style="display: none;">
       hidden
       <input
         style="display: none"
@@ -136,7 +136,7 @@
             title="Unlink" [disabled]="htmlMode || !linkSelected" [hidden]="isButtonHidden('unlink')" tabindex="-1">
       <em class="fa fa-chain-broken"></em>
     </button>
-    <label>
+    <label style="display: none;">
       hidden
       <input
         style="display: none"
