@@ -102,6 +102,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (isDefined(this.autoFocus)) {
       this.focus();
     }
+
+    // IE11 Compatibility
+    const eventType = /Trident/.test( navigator.userAgent ) ? 'textinput' : 'input';
+    this.textArea.nativeElement.addEventListener(eventType, (event) => this.onContentChange(event.target));
   }
 
   /**
