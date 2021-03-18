@@ -104,7 +104,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     // IE11 Compatibility
-    const eventType = isIE11() ? 'textinput' : 'input';
+    const eventType = isIE11() ? 'DOMSubtreeModified' : 'input';
     this.textArea.nativeElement.addEventListener(eventType, (event) => this.onContentChange(event.target));
   }
 
@@ -201,7 +201,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if (isIE11()) {
       element = this.textArea.nativeElement as HTMLElement;
     }
-    console.log(element);
     let html = '';
     if (this.modeVisual) {
       html = element.innerHTML;
@@ -211,7 +210,6 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if ((!html || html === '<br>')) {
       html = '';
     }
-    console.log(html);
     if (typeof this.onChange === 'function') {
       this.onChange(this.config.sanitize || this.config.sanitize === undefined ?
         this.sanitizer.sanitize(SecurityContext.HTML, html) : html);
