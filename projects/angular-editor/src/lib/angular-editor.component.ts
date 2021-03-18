@@ -23,7 +23,7 @@ import {AngularEditorToolbarComponent} from './angular-editor-toolbar.component'
 import {AngularEditorService} from './angular-editor.service';
 import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import {isDefined} from './utils';
+import {isDefined, isIE11} from './utils';
 
 @Component({
   selector: 'angular-editor',
@@ -104,7 +104,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     }
 
     // IE11 Compatibility
-    const eventType = /Trident/.test( navigator.userAgent ) ? 'textinput' : 'input';
+    const eventType = isIE11() ? 'textinput' : 'input';
     this.textArea.nativeElement.addEventListener(eventType, (event) => this.onContentChange(event.target));
   }
 
@@ -198,6 +198,10 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
    * @param element html element from contenteditable
    */
   onContentChange(element: HTMLElement): void {
+    if (isIE11()) {
+      element = this.textArea.nativeElement as HTMLElement;
+    }
+    console.log(element);
     let html = '';
     if (this.modeVisual) {
       html = element.innerHTML;
@@ -207,6 +211,7 @@ export class AngularEditorComponent implements OnInit, ControlValueAccessor, Aft
     if ((!html || html === '<br>')) {
       html = '';
     }
+    console.log(html);
     if (typeof this.onChange === 'function') {
       this.onChange(this.config.sanitize || this.config.sanitize === undefined ?
         this.sanitizer.sanitize(SecurityContext.HTML, html) : html);
