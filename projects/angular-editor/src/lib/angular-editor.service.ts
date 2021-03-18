@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DOCUMENT} from '@angular/common';
 import {CustomClass} from './config';
+import {isIE11} from './utils';
 
 export interface UploadResponse {
   imageUrl: string;
@@ -28,7 +29,7 @@ export class AngularEditorService {
   executeCommand(command: string) {
     const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
     // IE11 compatibility
-    if (Array.prototype.includes ? commands.includes(command) : commands.some(item => item === command)) {
+    if (isIE11() ? commands.some(item => item === command) : commands.includes(command)) {
       this.doc.execCommand('formatBlock', false, command);
       return;
     }
@@ -41,7 +42,7 @@ export class AngularEditorService {
    */
   createLink(url: string) {
     // IE11 compatibility
-    if (String.prototype.includes ? !url.includes('http') : url.indexOf('http') < 0) {
+    if (isIE11() ? url.indexOf('http') < 0 : !url.includes('http')) {
       this.doc.execCommand('createlink', false, url);
     } else {
       const newUrl = '<a href="' + url + '" target="_blank">' + this.selectedText + '</a>';

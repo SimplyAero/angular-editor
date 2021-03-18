@@ -5,6 +5,7 @@ import {DOCUMENT} from '@angular/common';
 import {CustomClass} from './config';
 import {SelectOption} from './ae-select/ae-select.component';
 import { Observable } from 'rxjs';
+import {isIE11} from "./utils";
 
 @Component({
   selector: 'angular-editor-toolbar',
@@ -317,7 +318,7 @@ export class AngularEditorToolbarComponent {
   onFileChanged(event) {
     const file = event.target.files[0];
     // IE11 compatibility
-    if (String.prototype.includes ? file.type.includes('image/') : file.type.indexOf('image/') >= 0) {
+    if (isIE11() ? file.type.indexOf('image/') >= 0 : file.type.includes('image/')) {
         if (this.upload) {
           this.upload(file).subscribe(() => this.watchUploadImage);
         } else if (this.uploadUrl) {
