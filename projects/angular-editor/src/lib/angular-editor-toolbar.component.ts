@@ -179,6 +179,10 @@ export class AngularEditorToolbarComponent {
       return;
     }
     this.buttons.forEach(e => {
+      // Removing a console error caused by an incompatibility with IE
+      if (isIE11() && e === 'link') {
+        return;
+      }
       const result = this.doc.queryCommandState(e);
       const elementById = this.doc.getElementById(e + '-' + this.id);
       if (result) {
